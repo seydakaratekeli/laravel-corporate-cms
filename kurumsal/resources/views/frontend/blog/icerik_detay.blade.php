@@ -13,7 +13,11 @@
                                 <h2 class="title">{{ $icerik->baslik }}</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">{{$icerik['kategoriler']['kategori_adi']}}</a></li>
+                                        <li class="breadcrumb-item">
+                                            <a href="{{ $icerik->kategoriler ? url('blog/' . $icerik->kategoriler->id . '/' . $icerik->kategoriler->url) : url('/blog') }}">
+                                                {{ $icerik->kategoriler->kategori_adi ?? 'Blog' }}
+                                            </a>
+                                        </li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $icerik->baslik }}</li>
                                     </ol>
                                 </nav>

@@ -8,11 +8,11 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-6 col-lg-8 col-md-10">
                             <div class="breadcrumb__wrap__content">
-                                <h2 class="title">{{ $kategoriAdi->kategori_adi }}</h2>
+                                <h2 class="title">Blog</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ url('/blog') }}">Blog</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">{{ $kategoriAdi->kategori_adi }}</li>
+                                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Anasayfa</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Liste</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-lg-8">
 
-                        @foreach ($blogpost as $icerikler)
+                        @foreach ($icerikHepsi as $icerikler)
 
 
 
@@ -66,7 +66,8 @@
                             @endforeach
 
                             <div class="pagination-wrap">
-                            {{ $blogpost->links('vendor.pagination.custom') }}
+                             
+                             {{ $icerikHepsi->links('vendor.pagination.custom') }}
 
                             </div>
                         </div>

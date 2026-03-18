@@ -48,11 +48,15 @@ class FrontController extends Controller
         return view('frontend.urunler.altkategori_detay', compact('urunler', 'altkategoriler', 'altkategori'));
     }
 
-    public function IcerikDetay($id)
+    public function IcerikDetay($id, $url)
     {
         $icerikHepsi=Blogicerik::where('durum', 1)->orderBy('sirano', 'ASC')->limit(5)-> get();
          $kategoriler = Blogkategori::where('durum', 1)->orderBy('sirano', 'ASC')-> get();
-         $icerik= Blogicerik::findOrFail($id);
+         $icerik= Blogicerik::with('kategoriler')->findOrFail($id);
+
+        if ($icerik->url !== $url) {
+            return redirect(url('post/' . $icerik->id . '/' . $icerik->url), 301);
+        }
 
         $etiket =$icerik->tag;
         
@@ -62,16 +66,25 @@ class FrontController extends Controller
         return view('frontend.blog.icerik_detay', compact('icerikHepsi','icerik','kategoriler', 'etiketler'));
     }
 
-    public function BlogKategoriDetay($id){
+    public function BlogKategoriDetay($id, $url){
+        $kategoriAdi= Blogkategori::findOrfail($id);
+
+        if ($kategoriAdi->url !== $url) {
+            return redirect(url('blog/' . $kategoriAdi->id . '/' . $kategoriAdi->url), 301);
+        }
         
-        $blogpost= Blogicerik::where('durum', 1)->where('kategori_id', $id)->orderBy('sirano', 'ASC')-> get();
+        $blogpost= Blogicerik::where('durum', 1)->where('kategori_id', $id)->orderBy('sirano', 'ASC')-> paginate(2);
         $icerikHepsi=Blogicerik::where('durum', 1)->orderBy('sirano', 'ASC')-> get();
         $kategoriler = Blogkategori::where('durum', 1)->orderBy('sirano', 'ASC')-> get();
-        $kategoriAdi= Blogkategori::findOrfail($id);
 
         return view('frontend.blog.blog_kategori_detay', compact('blogpost','icerikHepsi','kategoriler', 'kategoriAdi'));
     }
 
+    public function BlogHepsi(){
+        $kategoriler= Blogkategori::where('durum', 1)->orderBy('sirano', 'ASC')-> get();
+        $icerikHepsi=Blogicerik::where('durum', 1)->orderBy('sirano', 'ASC')-> paginate(2);
+        return view('frontend.blog.blog_hepsi', compact('kategoriler','icerikHepsi'));
+    }
 
 
 

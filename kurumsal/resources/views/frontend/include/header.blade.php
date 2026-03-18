@@ -13,9 +13,10 @@
                                     <div class="navbar__wrap main__menu d-none d-xl-flex">
                                         <ul class="navigation">
                                             <li class="active"><a href="{{ url('/') }}">Anasayfa</a></li>
-                                            <li><a href="about.html">Kurumsal</a></li>
+                                            <li><a href="{{ route('anasayfa_hak') }}">Hakkımızda</a></li>
                                             
 
+                                            
 
                                             @php
                                              $kategoriler = App\Models\Kategoriler::orderBy('kategori_adi', 'ASC')->limit(3)->get();
@@ -44,10 +45,17 @@
 
 
 
-                                            <li class="menu-item-has-children"><a href="#">Blog</a>
+                                            <li class="menu-item-has-children"><a href="{{ url('/blog') }}">Blog</a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="blog.html">Our News</a></li>
-                                                    <li><a href="blog-details.html">News Details</a></li>
+                                                    @php
+                                                        $kategoriler = App\Models\Blogkategori::where('durum', 1)->orderBy('sirano', 'ASC')->get(); 
+                                                    @endphp
+
+                                                    @foreach ($kategoriler as $kategori)
+                                                        <li><a href="{{ url('blog/' . $kategori->id.'/' .$kategori->url) }}">{{ $kategori->kategori_adi }}</a></li>
+                                                    @endforeach
+
+                                                    
                                                 </ul>
                                             </li>
                                             <li><a href="contact.html">İletişim</a></li>

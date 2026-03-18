@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UrunController;
 use App\Http\Controllers\Home\FrontController;
 use App\Http\Controllers\Admin\BlogkategoriController;
 use App\Http\Controllers\Admin\BlogicerikController;
+use App\Http\Controllers\Home\HakkimizdaController;
 
 
 
@@ -23,6 +24,20 @@ Route::controller(BannerController::class)->group(function () {
     Route::post('/banner/guncelle', 'BannerGuncelle')->name('banner.guncelle');
 
 });    
+
+//hakkimizda route
+Route::controller(HakkimizdaController::class)->group(function () {
+    Route::get('/hakkimizda/duzenle', 'Hakkimizda')->name('admin.hakkimizda');
+    Route::post('/hakkimizda/guncelle', 'HakkimizdaGuncelle')->name('admin.hakkimizda.guncelle');
+    Route::get('/hakkimizda', 'HakkimizdaFront')->name('anasayfa_hak');
+    Route::get('/coklu/resim', 'Cokluresim')->name('coklu.resim');
+    Route::post('/coklu/form', 'CokluForm')->name('coklu.resim.form');
+    Route::get('/coklu/liste', 'CokluListe')->name('coklu.liste');
+    Route::get('/coklu/duzenle/{id}', 'CokluDuzenle')->name('coklu.duzenle');
+    Route::post('/coklu/guncelle', 'CokluGuncelle')->name('coklu.guncelle');
+    Route::get('/coklu/sil/{id}', 'CokluSil')->name('coklu.sil');
+
+    });
 
 //kategori route
 Route::controller(KategoriController::class)->group(function () {
@@ -82,7 +97,6 @@ Route::controller(BlogicerikController::class)->group(function () {
 });
 
 
-
 Route::middleware('auth')->controller(BannerController::class)->group(function () {
     Route::get('/banner/duzenle', 'HomeBanner')->name('banner');
     Route::post('/banner/guncelle', 'BannerGuncelle')->name('banner.guncelle');
@@ -111,26 +125,20 @@ require __DIR__.'/auth.php';
     Route::get('/altkategori/{id}/{url}', [FrontController::class, 'AltDetay']);
     Route::get('/post/{id}/{url}', [FrontController::class, 'IcerikDetay']);
     Route::get('/blog/{id}/{url}', [FrontController::class, 'BlogKategoriDetay']); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    Route::get('/iletisim', [FrontController::class, 'iletisim'])->name('iletisim');
-    Route::post('/iletisim/form', [FrontController::class, 'iletisimForm'])->name('iletisim.form');
-    Route::get('/hakkimizda', [FrontController::class, 'hakkimizda'])->name('hakkimizda');
-    Route::get('/referanslar', [FrontController::class, 'referanslar'])->name('referanslar');
-    Route::get('/kategoriler', [FrontController::class, 'kategoriler'])->name('kategoriler');
-    Route::get('/altkategoriler', [FrontController::class, 'altkategoriler'])->name('altkategoriler');
-    Route::get('/urunler', [FrontController::class, 'urunler'])->name('urunler');
+    Route::get('/blog', [FrontController::class, 'BlogHepsi']);
    
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 
