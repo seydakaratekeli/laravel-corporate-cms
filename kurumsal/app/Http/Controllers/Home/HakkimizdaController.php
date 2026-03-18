@@ -160,11 +160,12 @@ class HakkimizdaController extends Controller
         }
 
         public function CokluSil($id){
-            $coklu_resimler = Cokluresim::findOrFail($id);
-            $resim_yolu = $coklu_resimler->resim;
+            $resim_id = Cokluresim::findOrFail($id);
 
-            if (file_exists($resim_yolu)) {
-                unlink($resim_yolu);
+            $resim = $resim_id->resim;
+
+            if (file_exists($resim)) {
+                unlink($resim);
             }
 
             Cokluresim::findOrFail($id)->delete();
