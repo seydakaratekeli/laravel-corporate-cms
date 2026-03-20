@@ -6,11 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles; 
+use DB;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -45,5 +47,36 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    public static function IzinGruplari()
+    {
+        $izin_gruplari = DB::table('permissions')->select('grup_adi')->groupBy('grup_adi')->get();
+        return $izin_gruplari;
+        
+    }
+
+    public static function YetkiGruplari($grup_adi)
+    {
+        $yetki = DB::table('permissions')->select('name', 'id')->where('grup_adi', $grup_adi)->get();
+        return $yetki;
+    }
+
+    public static function RolYetkileri($rol, $yetki_grup)
+    {
+        $yetkiIzinleri = true;
+
+
+
+        foreach ($yetki_grup as $yetkiler) {
+            if (!$rol->hasPermissionTo($yetkiler->name)) {
+                $yetkiIzinleri = false;
+                return $yetkiIzinleri;
+            }
+         return $yetkiIzinleri;
+
+        }
+       
     }
 }

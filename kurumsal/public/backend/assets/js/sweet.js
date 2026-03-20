@@ -1,7 +1,7 @@
 
 
 $(function(){
-  $(document).on('click', '.btn-delete, #sil, #delete, a[href*="/sil/"]', function(e){
+  $(document).on('click', '.btn-delete, [id="sil"], #delete, a[href*="/sil/"]', function(e){
     e.preventDefault();
     var link = $(this).closest('a').attr("href");
 

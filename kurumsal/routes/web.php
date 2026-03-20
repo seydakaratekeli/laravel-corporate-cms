@@ -11,11 +11,23 @@ use App\Http\Controllers\Home\FrontController;
 use App\Http\Controllers\Admin\BlogkategoriController;
 use App\Http\Controllers\Admin\BlogicerikController;
 use App\Http\Controllers\Home\HakkimizdaController;
+use App\Http\Controllers\Admin\MesajController;
+use App\Http\Controllers\Admin\SurecController;
+use App\Http\Controllers\Home\YorumController;
+use App\Http\Controllers\Home\FooterController;
+use App\Http\Controllers\Home\SeoController;
+use App\Http\Controllers\Admin\RolController;
 
 
 
 Route::get('/', function () {
     return view('frontend.index');
+});
+
+//seo route
+Route::controller(SeoController::class)->group(function () {
+    Route::get('/seo/duzenle', 'SeoDuzenle')->name('seo.duzenle');
+    Route::post('/seo/guncelle', 'SeoGuncelle')->name('seo.guncelle');
 });
 
 //banner route
@@ -24,6 +36,12 @@ Route::controller(BannerController::class)->group(function () {
     Route::post('/banner/guncelle', 'BannerGuncelle')->name('banner.guncelle');
 
 });    
+
+//footer route
+Route::controller(FooterController::class)->group(function () {
+    Route::get('/footer/duzenle', 'FooterDuzenle')->name('footer.duzenle');
+    Route::post('/footer/guncelle', 'FooterGuncelle')->name('footer.guncelle');
+});
 
 //hakkimizda route
 Route::controller(HakkimizdaController::class)->group(function () {
@@ -38,6 +56,8 @@ Route::controller(HakkimizdaController::class)->group(function () {
     Route::get('/coklu/sil/{id}', 'CokluSil')->name('coklu.sil');
 
     });
+
+    
 
 //kategori route
 Route::controller(KategoriController::class)->group(function () {
@@ -96,6 +116,16 @@ Route::controller(BlogicerikController::class)->group(function () {
     Route::get('/blog/icerik/sil/{id}', 'BlogicerikSil')->name('blog.icerik.sil');
 });
 
+//Süreç route
+Route::controller(SurecController::class)->group(function () {
+    Route::get('/surec/liste', 'SurecListe')->name('surec.liste');
+    Route::get('/surec/ekle', 'SurecEkle')->name('surec.ekle');
+    Route::post('/surec/form', 'SurecForm')->name('surec.form');
+    Route::get('/surec/durum', 'SurecDurum');
+    Route::get('/surec/duzenle/{id}', 'SurecDuzenle')->name('surec.duzenle');
+    Route::post('/surec/guncelle', 'SurecGuncelle')->name('surec.guncelle');
+    Route::get('/surec/sil/{id}', 'SurecSil')->name('surec.sil');
+});
 
 Route::middleware('auth')->controller(BannerController::class)->group(function () {
     Route::get('/banner/duzenle', 'HomeBanner')->name('banner');
@@ -126,6 +156,55 @@ require __DIR__.'/auth.php';
     Route::get('/post/{id}/{url}', [FrontController::class, 'IcerikDetay']);
     Route::get('/blog/{id}/{url}', [FrontController::class, 'BlogKategoriDetay']); 
     Route::get('/blog', [FrontController::class, 'BlogHepsi']);
+
+    // teklif formu route
+Route::controller(MesajController::class)->group(function () {
+    Route::get('/iletisim', 'Iletisim')->name('iletisim');
+   
+    Route::post('/teklif/form', 'TeklifFormu')->name('teklif.form');
+  
+});
+//yorumlar route
+Route::controller(YorumController::class)->group(function () {
+    Route::post('/yorum/form', 'YorumForm')->name('yorum.form');
+    Route::get('/yorumlar', 'Yorumlar')->name('yorum.liste');
+    Route::get('/yorum/ekle', 'YorumEkle')->name('yorum.ekle');
+
+    Route::get('/yorum/durum', 'YorumDurum');
+    Route::get('/yorum/duzenle/{id}', 'YorumDuzenle')->name('yorum.duzenle');
+     Route::post('/yorum/guncelle', 'YorumGuncelle')->name('yorum.guncelle');
+     Route::get('/yorum/sil/{id}', 'YorumSil')->name('yorum.sil');
+});
+
+//izinler route
+Route::controller(RolController::class)->group(function () {
+    Route::get('/izin/liste', 'IzinListe')->name('izin.liste');
+    Route::get('/izin/ekle', 'IzinEkle')->name('izin.ekle');
+    Route::post('/izin/form', 'IzinForm')->name('izin.ekle.form');
+    Route::get('/izin/duzenle/{id}', 'IzinDuzenle')->name('izin.duzenle');
+    Route::post('/izin/guncelle/form', 'IzinGuncelle')->name('izin.guncelle.form');
+    Route::get('/izin/sil/{id}', 'IzinSil')->name('izin.sil');
+});
+
+    //rol route
+    Route::controller(RolController::class)->group(function () {
+
+    Route::get('/rol/liste', 'RolListe')->name('rol.liste');
+    Route::get('/rol/ekle', 'RolEkle')->name('rol.ekle');
+    Route::post('/rol/form', 'RolForm')->name('rol.ekle.form');
+    Route::get('/rol/duzenle/{id}', 'RolDuzenle')->name('rol.duzenle');
+    Route::post('/rol/guncelle/form', 'RolGuncelle')->name('rol.guncelle');
+    Route::get('/rol/sil/{id}', 'RolSil')->name('rol.sil');
+
+    //rol izin verme route
+    Route::get('/rol/izin/verme', 'RolIzinVerme')->name('rol.izin.verme');
+    Route::post('/rol/yetki/ver', 'RolYetkiVer')->name('yetki.ver.form');
+    Route::get('/rol/yetki/liste', 'RolYetkiListe')->name('rol.yetki.liste');
+    Route::get('/rol/yetki/duzenle/{id}', 'RolYetkiDuzenle')->name('rol.yetki.duzenle');
+    Route::get('/rol/yetki/sil/{id}', 'RolYetkiSil')->name('rol.yetki.sil');
+
+
+});
    
 
 

@@ -120,43 +120,49 @@ class HakkimizdaController extends Controller
         return view('admin.anasayfa.coklu_liste', compact('coklu_resimler'));
     }
 
-        public function CokluDuzenle(Request $request, $id){
+        public function CokluDuzenle($id){
+            $resim = Cokluresim::findOrFail($id);
+            return view('admin.anasayfa.coklu_duzenle', compact('resim'));
+        }
+
+        public function CokluGuncelle(Request $request){
 
             $request->validate([
                 'resim' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
             ],[
                 'resim.required' => 'Lutfen bir resim seciniz.',
-                'resim.image' => 'Yuklenen dosya resim olmalidir.',
-                'resim.mimes' => 'Resim jpg, jpeg, png, webp veya gif formatinda olmalidir.',
-                'resim.max' => 'Resim en fazla 2MB olabilir.',
+               
             ]);
 
-            $id=$request->id;
-            $eski_resim=$request->onceki_resim;
+            $id = $request->id;
+            $eski_resim = $request->onceki_resim;
 
-            if($request->file('resim')) {
+            if ($request->file('resim')) {
                 $resim = $request->file('resim');
                 $resimadi = hexdec(uniqid()) . '.' . $resim->getClientOriginalExtension();
 
                 Image::read($resim)->resize(222, 222)->save('upload/coklu/' . $resimadi);
                 $resim_kaydet = 'upload/coklu/' . $resimadi;
 
-                    if (file_exists($eski_resim)) {
-                        unlink($eski_resim);
-                    }
+                if (file_exists($eski_resim)) {
+                    unlink($eski_resim);
+                }
 
                 Cokluresim::findOrFail($id)->update([
                     'resim' => $resim_kaydet,
                     'updated_at' => Carbon::now(),
                 ]);
+
                 $mesaj = array(
                     'bildirim' => 'Çoklu resim başarıyla güncellendi.',
                     'alert-type' => 'success',
 
                 );
-                return Redirect()->route('coklu.liste')->with($mesaj);
 
-            } 
+                return Redirect()->route('coklu.liste')->with($mesaj);
+            }
+
+            return Redirect()->back();
         }
 
         public function CokluSil($id){

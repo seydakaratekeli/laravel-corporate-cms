@@ -3,8 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Seyda Karatekelioğlu - Kurumsal</title>
-        <meta name="description" content="">
+        <title> @yield('title') </title>
+        <meta name="author" content="@yield('author')">
+        <meta name="description" content="@yield('aciklama')">
+        <meta name="keywords" content="@yield('anahtar')">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('/frontend/assets/img/favicon.png') }}">
@@ -19,6 +21,9 @@
         <link rel="stylesheet" href="{{ asset('/frontend/assets/css/default.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/assets/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/assets/css/responsive.css') }}">
+         <!-- bildiri -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+    <!-- bildiri -->
     </head>
     <body>
 
@@ -74,5 +79,68 @@
         <script src="{{ asset('/frontend/assets/js/wow.min.js') }}"></script>
         <script src="{{ asset('/frontend/assets/js/plugins.js') }}"></script>
         <script src="{{ asset('/frontend/assets/js/main.js') }}"></script>
+
+        <!-- bildiri -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script>
+            
+           @if(Session::has('bildirim'))
+           var type = "{{ Session::get('alert-type','info') }}"
+           switch(type){
+           case 'info':
+            toastr.info(" {{ Session::get('bildirim') }} ");
+            break;
+
+        case 'success':
+            toastr.success(" {{ Session::get('bildirim') }} ");
+            break;
+
+        case 'warning':
+            toastr.warning(" {{ Session::get('bildirim') }} ");
+            break;
+
+        case 'error':
+            toastr.error(" {{ Session::get('bildirim') }} ");
+            break; 
+        }
+        @endif 
+    </script>
+    <!-- bildiri -->
+
+        @push('scripts')
+        
+<script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myForm').validate({
+            rules: {
+                adi: { required: true },
+                email:      { required: true, email: true },
+                telefon:    { required: true, digits: true, minlength: 11, maxlength: 11 },
+                konu:       { required: true },
+                mesaj:      { required: true },
+            },
+            messages: {
+                adi: { required: 'Ad soyad giriniz' },
+                email:      { required: 'E-posta giriniz', email: 'Geçerli bir e-posta adresi giriniz' },
+                telefon:    { required: 'Telefon giriniz', digits: 'Sadece rakam giriniz', minlength: '11 karakter olmalıdır', maxlength: '11 karakter olmalıdır' },
+                konu:       { required: 'Konu giriniz' },
+                mesaj:      { required: 'Mesaj giriniz' },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+</script>
+@endpush
     </body>
 </html>

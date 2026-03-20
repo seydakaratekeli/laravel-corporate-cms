@@ -237,5 +237,53 @@
 
 
 
+
+<!--  Surec icerik aktif pasif durum alanı *--->
+<script>
+    $(function () {
+        $('.surec').change(function() {
+                var durum = $(this).prop('checked') == true ? 1 : 0;
+
+                var urun_id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url:'/surec/durum',
+                data: {'durum': durum, 'urun_id': urun_id},
+                success: function(data){
+                    console.log(data.success)
+                }
+            });
+        });
+    });
+
+</script>
+<!--  Surec icerik aktif pasif durum alanı *--->
+
+<!--  Yorum icerik aktif pasif durum alanı *--->
+  <script>
+    $(function () {
+                $('.yorum').change(function() {
+                var durum = $(this).prop('checked') == true ? 1 : 0;
+
+                var urun_id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url:'/yorum/durum',
+                data: {'durum': durum, 'urun_id': urun_id},
+                success: function(data){
+                    console.log(data.success)
+                }
+            });
+        });
+    });
+
+</script>
+<!--  Yorum icerik aktif pasif durum alanı *--->
+
+
+
+
 </body>
 </html>

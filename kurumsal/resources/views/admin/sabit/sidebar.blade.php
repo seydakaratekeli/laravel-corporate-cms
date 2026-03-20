@@ -37,9 +37,9 @@
                                     <li><a href="{{ route('admin.hakkimizda') }}">Hakkımızda Düzenle</a></li>
                                     <li><a href="{{ route('coklu.resim') }}">Çoklu Resim Ekle </a></li>
                                     <li><a href="{{ route('coklu.liste') }}">Çoklu Resim Listesi </a></li>
-                                    <li><a href="{{ route('coklu.duzenle') }}">Çoklu Resim Düzenle </a></li>
-                                    <!-- <li><a href="{{ route('coklu.sil') }}">Çoklu Resim Sil </a></li> -->
+                                   
 
+                                   
                                 </ul>
 
                              <li>
@@ -121,6 +121,86 @@
                                     </li>
                                 </ul>
                                 </li>
+
+                                    <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-layout-3-line"></i>
+                                    <span>Süreçler</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+
+                                    <li> 
+                                            <li><a href="{{ route('surec.liste') }}">Liste </a></li>
+                                           <li><a href="{{ route('surec.ekle') }}">Süreç Ekle</a></li>
+                                      
+                                    </li>
+                                </ul>
+                                </li>
+
+                                 <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-layout-3-line"></i>
+                                    <span>Yorumlar</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+
+                                    <li> 
+                                            <li><a href="{{ route('yorum.liste') }}">Liste </a></li>
+                                           <li><a href="{{ route('yorum.ekle') }}">Yorum Ekle</a></li>
+                                      
+                                    </li>
+                                </ul>
+                                </li>
+
+                                
+                                 <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-layout-3-line"></i>
+                                    <span>Footer</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+
+                                    <li> 
+                                    <li><a href="{{ route('footer.duzenle') }}">Güncelle </a></li>
+                                    </li>
+                                </ul>
+                                </li>
+
+                                  <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-layout-3-line"></i>
+                                    <span>Seo Ayarları</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+
+                                    <li> 
+                                    <li><a href="{{ route('seo.duzenle') }}">Güncelle </a></li>
+                                    </li>
+                                </ul>
+                                </li>
+
+                                 <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-layout-3-line"></i>
+                                    <span>Roller ve İzinler</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+
+                                    <li> 
+                                            <li><a href="{{ route('izin.liste') }}">İzinler </a></li>
+                                           <li><a href="{{ route('rol.liste') }}">Roller</a></li>
+                                            <li><a href="{{ route('rol.izin.verme') }}">Role İzin Ver</a></li>
+                                            <li><a href="{{ route('rol.yetki.liste') }}">Rol Yetkileri</a></li>
+
+                                    </li>
+                                </ul>
+                                </li>
+
+                                
+
+
+
+
                                 
 
 

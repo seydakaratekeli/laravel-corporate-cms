@@ -49,7 +49,7 @@
                                                     <a href="{{ route('coklu.duzenle', $resimler->id) }}" class="btn btn-info btn-sm">Düzenle 
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="{{ route('coklu.sil', $resimler->id) }}" class="btn btn-danger btn-sm" id="sil">Sil 
+                                                    <a href="{{ route('coklu.sil', $resimler->id) }}" class="btn btn-danger btn-sm btn-delete" id="sil">Sil 
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </td>

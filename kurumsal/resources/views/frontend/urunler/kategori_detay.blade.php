@@ -1,4 +1,16 @@
 @extends('frontend.main_master')
+
+@php 
+$seo = App\Models\Seo::find(1);
+@endphp
+
+
+ @section('title') {{ $kategori->kategori_adi }} | {{ $seo->site_adi }} @endsection
+@section('author') {{ $seo->author }} @endsection
+@section('aciklama') {{ $kategori->aciklama }} @endsection
+@section('anahtar') {{ $kategori->anahtar }} @endsection 
+
+
 @section('main')
             <!-- breadcrumb-area -->
             <section class="breadcrumb__wrap">

@@ -41,11 +41,9 @@ class FrontController extends Controller
     public function AltDetay(Request $request, $id, $url)
     {
         $urunler = Urunler::where('durum', 1)->where('altkategori_id', $id)->orderBy('sirano', 'ASC')->get();
-         $altkategoriler = Altkategoriler::orderBy('altkategori_adi', 'ASC')->get();
+        $altkategori = Altkategoriler::where('id', $id)->firstOrFail();
 
-         $altkategoriler = Altkategoriler::where('id', $id)->first();
-
-        return view('frontend.urunler.altkategori_detay', compact('urunler', 'altkategoriler', 'altkategori'));
+        return view('frontend.urunler.altkategori_detay', compact('urunler', 'altkategori'));
     }
 
     public function IcerikDetay($id, $url)
