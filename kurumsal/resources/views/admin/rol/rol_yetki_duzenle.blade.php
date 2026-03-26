@@ -2,6 +2,13 @@
 
 
 @section('admin')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style type="text/css">
+    .form-check-label {
+        text-transform: capitalize;
+   }
+</style>
 
 <div class="page-content">
     <div class="container-fluid">
@@ -11,7 +18,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Role Yetki Düzenle</h4>
 
-                        <form method="post" action="{{ route('yetki.ver.form') }}" id="myForm">
+                        <form method="post" action="{{ route('rol.yetki.guncelle', $rol->id) }}" id="myForm">
                             @csrf
                             <input type="hidden" name="rol_id" value="{{ $rol->id }}">
 
@@ -19,7 +26,7 @@
                              <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Rol adı</label>
                                 <div class="col-sm-10 form-group">
-                                    <input type="text" name="name" value="{{ $rol->name }}" readonly>
+                                    <input class="form-control" type="text" name="name" value="{{ $rol->name }}" readonly>
                                 </div>
                             </div>
 

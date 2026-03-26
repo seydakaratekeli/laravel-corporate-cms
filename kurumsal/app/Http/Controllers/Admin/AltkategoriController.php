@@ -17,7 +17,7 @@ class AltkategoriController extends Controller
    
 
     public function AltkategoriListe(){
-        $altkategoriler = Altkategoriler::latest()->get();
+        $altkategoriler = Altkategoriler::orderBy('sirano', 'asc')->orderBy('id', 'desc')->get();
         return view('admin.altkategoriler.altkategori_liste', compact('altkategoriler'));
     }
 
@@ -39,16 +39,16 @@ class AltkategoriController extends Controller
             'anahtar'=>'required',
             'aciklama'=>'required',
             'resim'=>'required|mimes:jpg,jpeg,png',
+            'sirano'=>'required|integer',
         ],[
             'altkategori_adi.required'=>'Alt kategori adı boş geçilemez.',
             'anahtar.required'=>'Anahtar boş geçilemez.',
             'aciklama.required'=>'Açıklama boş geçilemez.',
             'resim.required'=>'Resim boş geçilemez.',
-            'resim.mimes'=>'Resim formatı jpg, jpeg veya png olmalıdır.'
+            'resim.mimes'=>'Resim formatı jpg, jpeg veya png olmalıdır.',
+            'sirano.required'=>'Sıra no boş geçilemez.',
+            'sirano.integer'=>'Sıra no bir tam sayı olmalıdır.'
         ]);
-
-
-
 
         if($request->file('resim')){
             $resim=$request->file('resim');
@@ -57,7 +57,6 @@ class AltkategoriController extends Controller
             Image::read($resim)->resize(700,400)->save('upload/altkategoriler/'.$resimadi);
             $resim_kaydet='upload/altkategoriler/'.$resimadi;
 
-            
             Altkategoriler::insert([
                 'altkategori_adi'=>$request->altkategori_adi,
                 'altkategori_url'=>str()->slug( $request->altkategori_adi),
@@ -65,6 +64,8 @@ class AltkategoriController extends Controller
                 'anahtar'=>$request->anahtar,
                 'aciklama'=>$request->aciklama,
                 'resim'=>$resim_kaydet,
+                'durum'=>1,
+                'sirano'=>$request->sirano,
                 'created_at'=>Carbon::now(),
                 
             ]);
@@ -83,6 +84,8 @@ class AltkategoriController extends Controller
                 'kategori_id'=>$request->kategori_id,
                 'anahtar'=>$request->anahtar,
                 'aciklama'=>$request->aciklama,
+                'durum'=>1,
+                'sirano'=>$request->sirano,
                 'created_at'=>Carbon::now(),
                 
             ]);
@@ -114,11 +117,14 @@ class AltkategoriController extends Controller
             'anahtar'=>'required',
             'aciklama'=>'required',
             'resim'=>'nullable|mimes:jpg,jpeg,png',
+                        'sirano'=>'required|integer',
         ],[
             'altkategori_adi.required'=>'Alt kategori adı boş geçilemez.',
             'anahtar.required'=>'Anahtar boş geçilemez.',
             'aciklama.required'=>'Açıklama boş geçilemez.',
-            'resim.mimes'=>'Resim formatı jpg, jpeg veya png olmalıdır.'
+                        'resim.mimes'=>'Resim formatı jpg, jpeg veya png olmalıdır.',
+                        'sirano.required'=>'Sıra no boş geçilemez.',
+                        'sirano.integer'=>'Sıra no bir tam sayı olmalıdır.'
         ]);
 
 
@@ -144,6 +150,7 @@ class AltkategoriController extends Controller
                 'anahtar' => $request->anahtar,
                 'aciklama' => $request->aciklama,
                 'resim' => $resim_kaydet,
+                'sirano' => $request->sirano,
             ]);
              $mesaj=array(
                     'bildirim'=>'Resim ile güncelleme başarılı.',
@@ -160,6 +167,7 @@ class AltkategoriController extends Controller
                 'altkategori_url' => str()->slug($request->altkategori_adi),
                 'anahtar' => $request->anahtar,
                 'aciklama' => $request->aciklama,
+                'sirano' => $request->sirano,
             ]);
              $mesaj=array(
                     'bildirim'=>'Resim olmadan güncelleme başarılı.',
@@ -197,4 +205,17 @@ class AltkategoriController extends Controller
         $altkgetir = Altkategoriler::where('kategori_id', $kategori_id)->orderBy('altkategori_adi', 'ASC')->get();
         return json_encode($altkgetir);
      }
+
+     public function AltkategoriDurum(Request $request){
+          $id = $request->id ?? $request->urun_id;
+          $urun = Altkategoriler::find($id);
+          if (!$urun) {
+                return response()->json(['error' => 'Alt kategori bulunamadı.'], 404);
+          }
+        $urun->durum = $request->durum;
+        $urun->save();
+
+          return response()->json(['success' => 'Alt kategori durumu güncellendi.']);
+     }
+
 }

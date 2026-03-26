@@ -29,29 +29,31 @@
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Anahtar</label>
                                 <div class="col-sm-10 form-group">
                                     <input class="form-control" name="anahtar" type="text" placeholder="Anahtar">
-                                     @error('anahtar')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                     
                                 </div>
                             </div>
                               <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Açıklama</label>
                                 <div class="col-sm-10 form-group">
                                     <input class="form-control" name="aciklama" type="text" placeholder="Açıklama" >
-                                     @error('aciklama')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                     
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <label for="example-text-input" class=" col-form-label">Sıra No</label>
+                                <div class="col-sm-2 form-group">
+                                    <input class="form-control" name="sirano" type="number" placeholder="Sıra No" value="1">
+                                  
+                                </div>
+                          </div>
                              
         
                             <div class="row mb-3">
                                 <label for="resim" class="col-sm-2 col-form-label">Resim</label>
                                 <div class="col-sm-10 form-group">
                                     <input type="file" name="resim" id="resim" class="form-control">
-                                    @error('resim')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    
                                 </div>
                             </div>
 

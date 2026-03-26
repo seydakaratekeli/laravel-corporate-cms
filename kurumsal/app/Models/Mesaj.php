@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailGonder;
+use App\Models\Footer;
+
 
 class Mesaj extends Model
 {
@@ -19,7 +21,9 @@ class Mesaj extends Model
 
         static::created(function ($bilgi) {
             
-           $adminEmail = 'seyda@gmail.com';
+            $email = Footer::first(1); // Footer modelinden ilk kaydı al
+            
+           $adminEmail = $email->mail; // Admin email adresini Footer modelinden al
 
             Mail::to($adminEmail)->send(new MailGonder($bilgi));
 

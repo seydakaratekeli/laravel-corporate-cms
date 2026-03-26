@@ -28,18 +28,13 @@ class KategoriController extends Controller
         $request->validate([
             'kategori_adi'=>'required',
             'anahtar'=>'required',
-            'aciklama'=>'required',
-            'resim'=>'required|mimes:jpg,jpeg,png',
+            'sirano'=>'required|integer',
         ],[
             'kategori_adi.required'=>'Kategori adı boş geçilemez.',
             'anahtar.required'=>'Anahtar boş geçilemez.',
-            'aciklama.required'=>'Açıklama boş geçilemez.',
-            'resim.required'=>'Resim boş geçilemez.',
-            'resim.mimes'=>'Resim formatı jpg, jpeg veya png olmalıdır.'
+            'sirano.required'=>'Sıra no boş geçilemez.',
+            'sirano.integer'=>'Sıra no bir tam sayı olmalıdır.'
         ]);
-
-
-
 
         if($request->file('resim')){
             $resim=$request->file('resim');
@@ -55,6 +50,8 @@ class KategoriController extends Controller
                 'anahtar'=>$request->anahtar,
                 'aciklama'=>$request->aciklama,
                 'resim'=>$resim_kaydet,
+                'durum'=>1,
+                'sirano'=>$request->sirano,
                 'created_at'=>Carbon::now(),
                 
             ]);
@@ -72,7 +69,10 @@ class KategoriController extends Controller
                 'kategori_url'=>str()->slug( $request->kategori_adi),
                 'anahtar'=>$request->anahtar,
                 'aciklama'=>$request->aciklama,
+                'durum'=>1,
+                'sirano'=>$request->sirano,
                 'created_at'=>Carbon::now(),
+
                 
             ]);
 
@@ -98,12 +98,15 @@ class KategoriController extends Controller
             'anahtar'=>'required',
             'aciklama'=>'required',
             'resim'=>'required|mimes:jpg,jpeg,png',
+            'sirano'=>'required|integer',
         ],[
             'kategori_adi.required'=>'Kategori adı boş geçilemez.',
             'anahtar.required'=>'Anahtar boş geçilemez.',
             'aciklama.required'=>'Açıklama boş geçilemez.',
             'resim.required'=>'Resim boş geçilemez.',
-            'resim.mimes'=>'Resim formatı jpg, jpeg veya png olmalıdır.'
+            'resim.mimes'=>'Resim formatı jpg, jpeg veya png olmalıdır.',
+            'sirano.required'=>'Sıra no boş geçilemez.',
+            'sirano.integer'=>'Sıra no bir tam sayı olmalıdır.'
         ]);
 
 
@@ -128,6 +131,7 @@ class KategoriController extends Controller
                 'anahtar' => $request->anahtar,
                 'aciklama' => $request->aciklama,
                 'resim' => $resim_kaydet,
+                'sirano' => $request->sirano,
             ]);
              $mesaj=array(
                     'bildirim'=>'Resim ile güncelleme başarılı.',
@@ -143,6 +147,7 @@ class KategoriController extends Controller
                 'kategori_url' => str()->slug($request->kategori_adi),
                 'anahtar' => $request->anahtar,
                 'aciklama' => $request->aciklama,
+                'sirano' => $request->sirano,
             ]);
              $mesaj=array(
                     'bildirim'=>'Resim olmadan güncelleme başarılı.',
@@ -175,6 +180,14 @@ class KategoriController extends Controller
 
         return Redirect()->back()->with($mesaj);
     }
+    public function KategoriDurum(Request $request){
+        $urun = Kategoriler::find($request->id);
+        $urun->durum = $request->durum;
+        $urun->save();
+
+        Kategoriler::where('id', $kategori_id)->update(['durum'=>$durum]);
+    }
+
 
 
 } //class bitti

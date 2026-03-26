@@ -1,8 +1,7 @@
  @php
 $yorumlar = App\Models\Yorumlar::where('durum', 1)->orderBy('sirano', 'asc')->get();
-$coklu = App\Models\Cokluresim::all();
+$coklu = App\Models\Cokluresim::where('durum', 1)->orderBy('sirano', 'asc')->get();
 @endphp
-
             <section class="testimonial">
                 <div class="container">
                     <div class="row align-items-center justify-content-between">
@@ -22,7 +21,6 @@ $coklu = App\Models\Cokluresim::all();
                                     <h2 class="title">Bazı Müşterilerimiz </h2>
                                 </div>
                                 <div class="testimonial__active">
-
                                     @foreach($yorumlar as $yorum)
                                     <div class="testimonial__item">
                                         <div class="testimonial__icon">
@@ -35,10 +33,8 @@ $coklu = App\Models\Cokluresim::all();
                                             </div>
                                         </div>
                                     </div>
-                                  
                                     @endforeach
                                 </div>
-
                                 <div class="testimonial__arrow"></div>
                             </div>
                         </div>

@@ -58,6 +58,17 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <label for="example-text-input" class=" col-form-label">Sıra No</label>
+                                <div class="col-sm-2 form-group">
+                                    <input class="form-control" name="sirano" type="number" placeholder="Sıra No" value="1">
+                                    @error('sirano')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                  
+                                </div>
+                          </div>
                              
         
                             <div class="row mb-3">
@@ -78,7 +89,7 @@
                             </div>
 
 
-                            <input type="submit" class="btn btn-info waves-effect waves-light" value="Kategori Ekle">
+                            <input type="submit" class="btn btn-info waves-effect waves-light" value="Alt Kategori Ekle">
 
                             
                         </form>
@@ -110,12 +121,14 @@
                 anahtar:      { required: true },
                 aciklama:     { required: true },
                 resim:        { required: true },
+                sirano:       { required: true, number: true },
             },
             messages: {
                 altkategori_adi: { required: 'Alt kategori adı giriniz' },
                 anahtar:      { required: 'Anahtar giriniz' },
                 aciklama:     { required: 'Açıklama giriniz' },
                 resim:        { required: 'Resim giriniz' },
+                sirano:       { required: 'Sıra no giriniz', number: 'Sıra no sayı olmalıdır' },
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {

@@ -82,6 +82,7 @@ class HakkimizdaController extends Controller
         $request->validate([
             'resim' => 'required|array|min:1',
             'resim.*' => 'image|mimes:jpg,jpeg,png,webp,gif|max:2048',
+            'sirano' => 'required|integer|min:1',
         ],[
             'resim.required' => 'Lutfen en az bir resim seciniz.',
             'resim.array' => 'Resim alani gecersiz.',
@@ -89,6 +90,7 @@ class HakkimizdaController extends Controller
             'resim.*.image' => 'Yuklenen dosyalar resim olmalidir.',
             'resim.*.mimes' => 'Resimler jpg, jpeg, png, webp veya gif formatinda olmalidir.',
             'resim.*.max' => 'Her bir resim en fazla 2MB olabilir.',
+            'sirano.required' => 'Lutfen bir sıra numarası giriniz.',
         ]);
 
         $resimler = $request->file('resim', []);
@@ -101,7 +103,9 @@ class HakkimizdaController extends Controller
             $resim_kaydet = 'upload/coklu/' . $resimadi;
 
             Cokluresim::insert([
+                'sirano' => $request->sirano,
                 'resim' => $resim_kaydet,
+                'durum' => 1,
                 'created_at' => Carbon::now(),
             ]);
         }
@@ -150,7 +154,8 @@ class HakkimizdaController extends Controller
 
                 Cokluresim::findOrFail($id)->update([
                     'resim' => $resim_kaydet,
-                    'updated_at' => Carbon::now(),
+                    'sirano' => $request->sirano,
+                 
                 ]);
 
                 $mesaj = array(
@@ -182,5 +187,12 @@ class HakkimizdaController extends Controller
 
             );
             return Redirect()->back()->with($mesaj);
+        }
+
+        public function CokluDurum(Request $request){
+            $id = $request->id ?? $request->urun_id;
+            $durum = Cokluresim::findOrFail($id);
+            $durum->durum = $request->durum;
+            $durum->save();
         }
 }

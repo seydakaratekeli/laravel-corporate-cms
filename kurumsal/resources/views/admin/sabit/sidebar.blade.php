@@ -9,192 +9,239 @@
                             <li class="menu-title">Menu</li>
 
                             <li>
-                                <a href="index.html" class="waves-effect">
+                                <a href="{{ url('/dashboard') }}" class="waves-effect">
                                     <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
                                     <span>Dashboard</span>
                                 </a>
                             </li>
-                
+                            @if (Auth::user()->can('banner.duzenle'))
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-mail-send-line"></i>
                                     <span>Banner</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{route('banner')}}">Banner Düzenle</a></li>
-                                   
+                                    @if (Auth::user()->can('banner.duzenle'))
+                                    <li><a href="{{ route('banner') }}">Banner Düzenle</a></li>
+                                    @endif
                                 </ul>
                             </li>
+                            @endif
 
-                        
-
-                              <li>
+                            @if (Auth::user()->canAny(['hakkimizda.guncelle', 'coklu.ekle', 'coklu.liste']))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-mail-send-line"></i>
                                     <span>Hakkımızda</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    @if (Auth::user()->can('hakkimizda.guncelle'))
                                     <li><a href="{{ route('admin.hakkimizda') }}">Hakkımızda Düzenle</a></li>
+                                    @endif
+                                    @if (Auth::user()->can('coklu.ekle'))
                                     <li><a href="{{ route('coklu.resim') }}">Çoklu Resim Ekle </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('coklu.liste'))
                                     <li><a href="{{ route('coklu.liste') }}">Çoklu Resim Listesi </a></li>
-                                   
-
-                                   
+                                    @endif
                                 </ul>
+                            </li>
+                            @endif
 
-                             <li>
+                            @if (Auth::user()->canAny(['kategori.hepsi', 'kategori.ekle']))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Kategoriler</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-                                    
-                                    <li> 
-                                            <li><a href="{{ route('kategori.hepsi') }}">Hepsi </a></li>
-                                            <li><a href="{{ route('kategori.ekle') }}">Kategori Ekle</a></li>
-                                         
-                                    </li>
+                                    @if (Auth::user()->can('kategori.hepsi'))
+                                    <li><a href="{{ route('kategori.hepsi') }}">Liste </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('kategori.ekle'))
+                                    <li><a href="{{ route('kategori.ekle') }}">Kategori Ekle</a></li>
+                                    @endif
                                 </ul>
                             </li>
+                            @endif
 
-                             <li>
+                            @if (Auth::user()->canAny(['altkategori.liste', 'altkategori.ekle']))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Alt Kategoriler</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-                                    
-                                    <li> 
-                                            <li><a href="{{ route('altkategori.liste') }}">Liste </a></li>
-                                            <li><a href="{{ route('altkategori.ekle') }}">Alt Kategori Ekle</a></li>
-
-                                         <!--- <li><a href="{{ route('altkategori.liste') }}">L </a></li>
-                                            <li><a href="{{ route('kategori.ekle') }}">Kategori Ekle</a></li> -->
-                                      
-                                    </li>
+                                    @if (Auth::user()->can('altkategori.liste'))
+                                    <li><a href="{{ route('altkategori.liste') }}">Liste </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('altkategori.ekle'))
+                                    <li><a href="{{ route('altkategori.ekle') }}">Alt Kategori Ekle</a></li>
+                                    @endif
                                 </ul>
-                            </li>  
-                            
+                            </li>
+                            @endif
+
+                            @if (Auth::user()->canAny(['urun.liste', 'urun.ekle']))
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Ürünler</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
-                                            <li><a href="{{ route('urun.liste') }}">Liste </a></li>
-                                            <li><a href="{{ route('urun.ekle') }}">Ürün Ekle</a></li>
-                                      
-                                    </li>
+                                    @if (Auth::user()->can('urun.liste'))
+                                    <li><a href="{{ route('urun.liste') }}">Liste </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('urun.ekle'))
+                                    <li><a href="{{ route('urun.ekle') }}">Ürün Ekle</a></li>
+                                    @endif
                                 </ul>
-
-
                             </li>
+                            @endif
 
-                                <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            @if (Auth::user()->canAny(['blog.liste', 'blog.kategori.ekle']))
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Bloglar</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
-                                            <li><a href="{{ route('blog.liste') }}">Liste </a></li>
-                                            <li><a href="{{ route('blog.kategori.ekle') }}">Blog Kategori Ekle</a></li>
-                                      
-                                    </li>
+                                    @if (Auth::user()->can('blog.liste'))
+                                    <li><a href="{{ route('blog.liste') }}">Liste </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('blog.kategori.ekle'))
+                                    <li><a href="{{ route('blog.kategori.ekle') }}">Blog Kategori Ekle</a></li>
+                                    @endif
                                 </ul>
-                                </li>
+                            </li>
+                            @endif
 
-                                  <li>
+                            @if (Auth::user()->canAny(['icerik.liste', 'blog.icerik.ekle']))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Blog İçerikler</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
-                                            <li><a href="{{ route('icerik.liste') }}">Liste </a></li>
-                                           <li><a href="{{ route('blog.icerik.ekle') }}">Blog İçerik Ekle</a></li>
-                                      
-                                    </li>
+                                    @if (Auth::user()->can('icerik.liste'))
+                                    <li><a href="{{ route('icerik.liste') }}">Liste </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('blog.icerik.ekle'))
+                                    <li><a href="{{ route('blog.icerik.ekle') }}">Blog İçerik Ekle</a></li>
+                                    @endif
                                 </ul>
-                                </li>
+                            </li>
+                            @endif
 
-                                    <li>
+                            @if (Auth::user()->canAny(['surec.liste', 'surec.ekle']))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Süreçler</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
-                                            <li><a href="{{ route('surec.liste') }}">Liste </a></li>
-                                           <li><a href="{{ route('surec.ekle') }}">Süreç Ekle</a></li>
-                                      
-                                    </li>
+                                    @if (Auth::user()->can('surec.liste'))
+                                    <li><a href="{{ route('surec.liste') }}">Liste </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('surec.ekle'))
+                                    <li><a href="{{ route('surec.ekle') }}">Süreç Ekle</a></li>
+                                    @endif
                                 </ul>
-                                </li>
+                            </li>
+                            @endif
 
-                                 <li>
+                            @if (Auth::user()->canAny(['yorum.liste', 'yorum.ekle']))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Yorumlar</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
-                                            <li><a href="{{ route('yorum.liste') }}">Liste </a></li>
-                                           <li><a href="{{ route('yorum.ekle') }}">Yorum Ekle</a></li>
-                                      
-                                    </li>
+                                    @if (Auth::user()->can('yorum.liste'))
+                                    <li><a href="{{ route('yorum.liste') }}">Liste </a></li>
+                                    @endif
+                                    @if (Auth::user()->can('yorum.ekle'))
+                                    <li><a href="{{ route('yorum.ekle') }}">Yorum Ekle</a></li>
+                                    @endif
                                 </ul>
-                                </li>
+                            </li>
+                            @endif
 
-                                
-                                 <li>
+                            @if (Auth::user()->can('footer.duzenle'))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Footer</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
+                                    @if (Auth::user()->can('footer.duzenle'))
                                     <li><a href="{{ route('footer.duzenle') }}">Güncelle </a></li>
-                                    </li>
+                                    @endif
                                 </ul>
-                                </li>
+                            </li>
+                            @endif
 
-                                  <li>
+                            @if (Auth::user()->can('seo.duzenle'))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Seo Ayarları</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
+                                    @if (Auth::user()->can('seo.duzenle'))
                                     <li><a href="{{ route('seo.duzenle') }}">Güncelle </a></li>
-                                    </li>
+                                    @endif
                                 </ul>
-                                </li>
+                            </li>
+                            @endif
 
-                                 <li>
+                            @if (Auth::user()->canAny(['izinler.liste', 'rol.liste']))
+                            <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ri-layout-3-line"></i>
                                     <span>Roller ve İzinler</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="true">
-
-                                    <li> 
-                                            <li><a href="{{ route('izin.liste') }}">İzinler </a></li>
-                                           <li><a href="{{ route('rol.liste') }}">Roller</a></li>
-                                            <li><a href="{{ route('rol.izin.verme') }}">Role İzin Ver</a></li>
-                                            <li><a href="{{ route('rol.yetki.liste') }}">Rol Yetkileri</a></li>
-
-                                    </li>
+                                    @if (Auth::user()->can('izinler.liste'))
+                                    <li><a href="{{ route('izin.liste') }}">İzinler Liste</a></li>
+                                    @endif
+                                    @if (Auth::user()->can('rol.liste'))
+                                    <li><a href="{{ route('rol.liste') }}">Roller Liste</a></li>
+                                    @endif
                                 </ul>
-                                </li>
+                            </li>
+                            @endif
+
+                            @if (Auth::user()->canAny(['rol.yetki.liste', 'rol.izin.verme']))
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-layout-3-line"></i>
+                                    <span>Yetkiler</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    @if (Auth::user()->can('rol.yetki.liste'))
+                                    <li><a href="{{ route('rol.yetki.liste') }}">İzinler Liste</a></li>
+                                    @endif
+                                    @if (Auth::user()->can('rol.izin.verme'))
+                                    <li><a href="{{ route('rol.izin.verme') }}">Roller Liste</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                            @endif
+
+                            @if (Auth::user()->can('kullanici.liste'))
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-layout-3-line"></i>
+                                    <span>Kullanıcılar</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    @if (Auth::user()->can('kullanici.liste'))
+                                    <li><a href="{{ route('kullanici.liste') }}">Kullanıcı Liste</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                            @endif
 
                                 
 

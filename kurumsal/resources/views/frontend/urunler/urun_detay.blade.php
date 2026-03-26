@@ -1,19 +1,16 @@
 @extends('frontend.main_master')
-
-
  @php 
 $seo = App\Models\Seo::find(1);
 @endphp
 
-
- @section('title') {{ $urunler->baslik }} | {{ $seo->site_adi }} @endsection
+@section('title') {{ $urunler->baslik }} | {{ $seo->site_adi }} @endsection
 @section('author') {{ $seo->author }} @endsection
 @section('aciklama') {{ $urunler->aciklama }} @endsection
 @section('anahtar') {{ $urunler->anahtar }} @endsection 
 
 @section('main')
 
-            <!-- breadcrumb-area -->
+            <!-- breadcrumb-areuua -->
             <section class="breadcrumb__wrap">
                 <div class="container custom-container">
                     <div class="row justify-content-center">
@@ -51,7 +48,7 @@ $seo = App\Models\Seo::find(1);
                             <div class="services__details__thumb">
                                 <img src="{{ asset('frontend/assets/img/images/services_details01.jpg') }}" alt="">
                             </div>
-                            <div class="services__details__content">
+                            <div class=" {{ asset($urunler->resim )}} ">
                                 <h1 class="title">{{ $urunler->baslik }}</h1>
 
                                 <p>{!! $urunler->metin !!}</p>

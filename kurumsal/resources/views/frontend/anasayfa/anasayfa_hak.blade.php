@@ -1,6 +1,6 @@
   @php
 $hakkimizda = App\Models\Hakkimizda::find(1);
-$coklu = App\Models\Cokluresim::all();
+$coklu = App\Models\Cokluresim::where('durum', 1)->orderBy('sirano', 'asc')->get();
 
   @endphp
 

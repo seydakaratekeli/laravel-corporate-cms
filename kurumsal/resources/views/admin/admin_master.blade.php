@@ -284,6 +284,94 @@
 
 
 
+<!--  Kullanıcı  aktif pasif durum alanı *--->
+  <script>
+    $(function () {
+                $('.kullanicilar').change(function() {
+                var durum = $(this).prop('checked') == true ? 1 : 0;
+
+                var urun_id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url:'/kullanici/durum',
+                data: {'durum': durum, 'urun_id': urun_id},
+                success: function(data){
+                    console.log(data.success)
+                }
+            });
+        });
+    });
+
+</script>
+<!--  Kullanıcı  aktif pasif durum alanı *--->
+
+<!--  coklu Resim  aktif pasif durum alanı *--->
+  <script>
+    $(function () {
+                $('.coklu').change(function() {
+                var durum = $(this).prop('checked') == true ? 1 : 0;
+
+                var urun_id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url:'/coklu/durum',
+                data: {'durum': durum, 'urun_id': urun_id},
+                success: function(data){
+                    console.log(data.success)
+                }
+            });
+        });
+    });
+
+</script>
+<!--  coklu Resim  aktif pasif durum alanı *--->
+
+<!--   kategoriler  aktif pasif durum alanı *--->
+  <script>
+    $(function () {
+                $('.kategoriler').change(function() {
+                var durum = $(this).prop('checked') == true ? 1 : 0;
+
+                var urun_id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url:'/kategoriler/durum',
+                data: {'durum': durum, 'urun_id': urun_id},
+                success: function(data){
+                    console.log(data.success)
+                }
+            });
+        });
+    });
+
+</script>
+<!--  kategoriler   aktif pasif durum alanı *--->
+
+<!--  alt kateoriler   aktif pasif durum alanı *--->
+  <script>
+    $(function () {
+                $('.altkategoriler').change(function() {
+                var durum = $(this).prop('checked') == true ? 1 : 0;
+
+                var id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url:'/altkategori/durum',
+                data: {'durum': durum, 'id': id},
+                success: function(data){
+                    console.log(data.success)
+                }
+            });
+        });
+    });
+
+</script>
+<!-- alt  kategoriler   aktif pasif durum alanı *--->
+
 
 </body>
 </html>

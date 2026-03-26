@@ -56,7 +56,7 @@ $seo = App\Models\Seo::find(1);
                         <div class="col-lg-8">
                             <div class="standard__blog__post">
                                 <div class="standard__blog__thumb">
-                                    <img src="assets/img/blog/blog_thumb01.jpg" alt="">
+                                    <img src="{{ asset($icerik->resim )}}" alt="">
                                 </div>
                                 <div class="blog__details__content services__details__content">
                                     <ul class="blog__post__meta">

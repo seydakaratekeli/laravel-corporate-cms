@@ -28,6 +28,9 @@
                                 <div class="col-sm-10 form-group">
                                     <select class="form-select" aria-label="Default select example" name="grup_adi">
                                         <option value="">Grup Seçiniz</option>
+                                        <option value="rolizin">Rol & İzin</option>
+                                        <option value="yetkiler">Yetkiler</option>
+                                        <option value="kullanıcılar">Kullanıcılar</option>
                                         <option value="banner">Banner</option>
                                         <option value="hakkimizda">Hakkımızda</option>
                                         <option value="kategoriler">Kategoriler</option>

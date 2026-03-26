@@ -12,7 +12,7 @@ $seo = App\Models\Seo::find(1);
 
 
 @section('main')
-            <!-- breadcrumb-area -->
+            <!-- breadcruuumb-area -->
             <section class="breadcrumb__wrap">
                 <div class="container custom-container">
                     <div class="row justify-content-center">
@@ -74,16 +74,8 @@ $seo = App\Models\Seo::find(1);
                       
                     </div>
                     <div class="pagination-wrap">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#"><i class="far fa-long-arrow-left"></i></a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                <li class="page-item"><a class="page-link" href="#"><i class="far fa-long-arrow-right"></i></a></li>
-                            </ul>
-                        </nav>
+                    {{ $urunler->links('vendor.pagination.custom') }}
+
                     </div>
                 </div>
             </section>

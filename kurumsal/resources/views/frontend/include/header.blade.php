@@ -16,11 +16,11 @@ $seo = App\Models\Seo::find(1);
                                     </div>
                                     <div class="navbar__wrap main__menu d-none d-xl-flex">
                                         <ul class="navigation">
-                                            <li class="active"><a href="{{ url('/') }}">Anasayfa</a></li>
+                                            <li ><a href="{{ url('/') }}">Anasayfa</a></li>
                                             <li><a href="{{ route('anasayfa_hak') }}">Hakkımızda</a></li>
                                   
                                             @php
-                                             $kategoriler = App\Models\Kategoriler::orderBy('kategori_adi', 'ASC')->limit(3)->get();
+                                             $kategoriler = App\Models\Kategoriler::where('durum', 1)->orderBy('sirano', 'ASC')->limit(3)->get();
                                             @endphp                                           
 
                                             @foreach($kategoriler as $kategori)
@@ -28,7 +28,7 @@ $seo = App\Models\Seo::find(1);
                                             <li class="menu-item-has-children"><a href="{{url('kategori/'.$kategori->id.'/'.$kategori->kategori_url)}}">{{ $kategori->kategori_adi}}</a>
 
                                             @php
-                                            $altkategoriler = App\Models\Altkategoriler::where('kategori_id',$kategori->id)->orderBy('altkategori_adi','DESC')->get();
+                                            $altkategoriler = App\Models\Altkategoriler::where('durum', 1)->where('kategori_id',$kategori->id)->orderBy('altkategori_adi','DESC')->get();
 
                                             @endphp
                                             

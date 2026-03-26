@@ -29,7 +29,7 @@ class FrontController extends Controller
 
     public function kategoriDetay(Request $request, $id, $url)
     {
-        $urunler = Urunler::where('durum', 1)->where('kategori_id', $id)->orderBy('sirano', 'ASC')->get();
+        $urunler = Urunler::where('durum', 1)->where('kategori_id', $id)->orderBy('sirano', 'ASC')->get()->paginate(1) ;
          $kategoriler = Kategoriler::orderBy('kategori_adi', 'ASC')->get();
          $kategori= Kategoriler::where('id', $id)->first();
 
@@ -40,7 +40,8 @@ class FrontController extends Controller
 
     public function AltDetay(Request $request, $id, $url)
     {
-        $urunler = Urunler::where('durum', 1)->where('altkategori_id', $id)->orderBy('sirano', 'ASC')->get();
+        $urunler = Urunler::where('durum', 1)->where('altkategori_id', $id)->orderBy('sirano', 'ASC')->get()->paginate(1) ;
+         $kategoriler = Kategoriler::orderBy('kategori_adi', 'ASC')->get();
         $altkategori = Altkategoriler::where('id', $id)->firstOrFail();
 
         return view('frontend.urunler.altkategori_detay', compact('urunler', 'altkategori'));

@@ -29,9 +29,11 @@
                                             <thead>
                                             <tr>
                                                 <th>Sıra</th>
+                                                <th>Sıra No</th>
                                                 <th>Kategori Adı</th>
                                                 <th>Alt Kategori Adı</th>
                                                 <th>Resim</th>
+                                                <th>Durum</th>
                                                 <th>İşlem</th>
                                             </tr>
                                             </thead>
@@ -45,10 +47,14 @@
                                                 @foreach($altkategoriler as $altkategori)
                                             <tr>
                                                 <td>{{ $s++ }}</td>
+                                                <td>{{ $altkategori->sirano ?? 1 }}</td>
                                                 <td>{{ $altkategori['iliskikategori']['kategori_adi']}}</td>
                                                 <td>{{ $altkategori->altkategori_adi }}</td>
                                                 <td><img src="{{ !empty($altkategori->resim) ? url($altkategori->resim) : url('upload/resim-yok.png') }}" style="width: 50px; height: 50px;"></td>
-
+                                                <td>
+                                                    <input type="checkbox" class="altkategoriler" data-id="{{ $altkategori->id }}" id="{{ $altkategori->id }}" switch="success" {{ $altkategori->durum ? 'checked' : '' }} />
+                                                    <label for="{{ $altkategori->id }}" data-on-label="Yes" data-off-label="No"></label>
+                                                </td>
 
                                                 <td><a href="{{ route('altkategori.duzenle', $altkategori->id) }}" class="btn btn-info btn-sm">Düzenle 
                                                     <i class="fas fa-edit"></i>

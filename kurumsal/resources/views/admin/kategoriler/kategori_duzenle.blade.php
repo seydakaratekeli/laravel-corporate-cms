@@ -36,6 +36,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            
                               <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Açıklama</label>
                                 <div class="col-sm-10">
@@ -45,6 +46,15 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <label for="example-text-input" class=" col-form-label">Sıra No</label>
+                                <div class="col-sm-2 form-group">
+                                    <input class="form-control" name="sirano" type="number" placeholder="Sıra No" value="{{ $KategoriDuzenle->sirano }}">
+                                     @error('sirano')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                              
         
                             <div class="row mb-3">

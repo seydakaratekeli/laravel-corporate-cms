@@ -35,6 +35,15 @@
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <label for="example-text-input" class=" col-form-label">Sıra No</label>
+                                <div class="col-sm-2 form-group">
+                                    <input class="form-control" name="sirano" type="number" placeholder="Sıra No" value=" {{ $resim->sirano }} ">
+                                  
+                                </div>
+                            </div>
+
+
 
                             <input type="submit" class="btn btn-info waves-effect waves-light" value="Çoklu Resim Güncelle">
 

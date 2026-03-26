@@ -2,6 +2,22 @@
 
 
 @section('admin')
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style type="text/css">
+    .bootstrap-tagsinput.tag {
+        margin-right: 3px;
+        font-weight: 700;
+        background: #f8f9fa;
+        padding: 4px;
+        color:#222;
+        border-radius: 3px;
+
+    }
+    .bootstrap-tagsinput {
+        padding: 10px;
+    }
+</style>
 
 <div class="page-content">
     <div class="container-fluid">
@@ -56,6 +72,16 @@
                                 <div class="col-sm-10 form-group">
                                     <input class="form-control" name="aciklama" type="text" placeholder="Açıklama"  value="{{ $altkategoriler->aciklama }}">
                                      @error('aciklama')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Sıra No</label>
+                                <div class="col-sm-10 form-group">
+                                    <input class="form-control" name="sirano" type="number" placeholder="Sıra No" value="{{ $altkategoriler->sirano ?? 1 }}">
+                                    @error('sirano')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -122,12 +148,14 @@
                 altkategori_adi: { required: true },
                 anahtar:      { required: true },
                 aciklama:     { required: true },
+                sirano:       { required: true, number: true },
               
             },
             messages: {
                 altkategori_adi: { required: 'Alt kategori adı giriniz' },
                 anahtar:      { required: 'Anahtar giriniz' },
                 aciklama:     { required: 'Açıklama giriniz' },
+                sirano:       { required: 'Sıra no giriniz', number: 'Sıra no sayı olmalıdır' },
               
             },
             errorElement: 'span',

@@ -31,6 +31,7 @@
                                                 <th>Sıra</th>
                                                 <th>Kategori Adı</th>
                                                 <th>Resim</th>
+                                                <th>Durum</th>
                                                 <th>İşlem</th>
                                             </tr>
                                             </thead>
@@ -46,6 +47,11 @@
                                                 <td>{{ $s++ }}</td>
                                                 <td>{{ $kategori->kategori_adi }}</td>
                                                 <td><img src="{{ !empty($kategori->resim) ? url($kategori->resim) : url('upload/resim-yok.png') }}" style="width: 50px; height: 50px;"></td>
+
+                                                 <td>
+                                                    <input type="checkbox" class="kategoriler" data-id="{{ $kategori->id }}" id="{{ $kategori->id }}" switch="success" {{ $kategori->durum ? 'checked' : '' }} />
+                                                    <label for="{{ $kategori->id }}" data-on-label="Yes" data-off-label="No"></label>
+                                                </td>
 
 
                                                 <td><a href="{{ route('kategori.duzenle', $kategori->id) }}" class="btn btn-info btn-sm">Düzenle 

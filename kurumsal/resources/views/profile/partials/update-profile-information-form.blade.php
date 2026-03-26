@@ -1,13 +1,14 @@
 <section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Information') }}
-        </h2>
+    <div class="card-header bg-transparent border-success">
+        <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>Hesap Bilgilerim</h5>
+    </div>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile information and email address.") }}
+    <div class="card-body">
+        <p class="card-text">
+            Hesabınızın profil bilgilerini ve e-posta adresini güncelleyin.
         </p>
-    </header>
+    </div>
+
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
@@ -17,47 +18,76 @@
         @csrf
         @method('patch')
 
-        <div class="mb-3">
-            <label for="name" class="form-label">{{ __('Name') }}</label>
-            <input id="name" name="name" type="text" class="form-control" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
-        </div>
-
-        <div class="mb-3">
-            <label for="email" class="form-label">{{ __('Email') }}</label>
-            <input id="email" name="email" type="email" class="form-control" value="{{ old('email', $user->email) }}" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                        {{ __('Your email address is unverified.') }}
-
-                        <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                            {{ __('Click here to re-send the verification email.') }}
-                        </button>
-                    </p>
-
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
+            <div class="row mb-3">
+                <label for="name" class="col-sm-3 col-form-label">
+                Ad Soyad</label>
+                <div class="col-sm-9 form-group">
+                    <input class="form-control" placeholder="Süreç" id="name" name="name" type="text" value="{{ old('name', $user->name) }}" autocomplete="name"/>
+                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                    </div>
                 </div>
-            @endif
+
+<div class="row"> <!-- row açılış --->
+
+    <label for="email" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-9 form-group">
+            <input class="form-control" placeholder="Süreç" id="email" name="email" type="email" value="{{ old('email', $user->email) }}" autocomplete="email"/>
+            <x-input-error class="mt-2" :messages="$errors->get('email')" />
         </div>
 
-        <div class="flex items-center gap-4">
-            <button type="submit" class="btn btn-info bg-dark">{{ __('Save') }}</button>
+        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
 
+    <div> <!-- endif üstü açılış -->
+        <div class="row mb-2 mt-2">
+            <label for="example-text-input" class="col-sm-3 col-form-label">
+            </label>
+            <div class="col-sm-9 form-group">
+                E-posta adresiniz doğrulanmadı.
+             </div>
+        </div>
+
+        <div class="row">
+            <label for="example-text-input" class="col-sm-3 col-form-label">
+            </label>
+            <div class="col-sm-9 form-group">
+                <button form="send-verification" type="submit" class="btn btn-warning waves-effect waves-light">
+                <i class="ri-error-warning-line align-middle me-2"></i>
+                   Doğrulama e-postasını yeniden göndermek için burayı tıklayın.
+                </button>
+             </div>
+        </div>
+
+            @if (session('status') === 'verification-link-sent')
+
+        <div class="row mt-2">
+            <label for="example-text-input" class="col-sm-3 col-form-label">
+            </label>
+            <p class="col-sm-9 form-group card-text">
+                E-posta adresinize yeni bir doğrulama bağlantısı gönderildi.
+            </p>
+        </div>
+            @endif
+        </div> <!-- endif üstü kapanış -->
+        @endif
+</div> <!-- row kapanış --->
+
+    <div class="row col-xl-12 mt-3"> <!-- son div açılış-->
+        <label class="col-xl-3 col-form-label"></label>
+            <div class="col-xl-4 col-md-6 form-group">
+                <button type="submit" class="btn btn-success waves-effect waves-light">
+                     <i class="ri-check-line align-middle me-2"></i>
+                     Kaydet
+                 </button>
+             </div>
+   
             @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Saved.') }}</p>
+            <p class="col-xl-3 pt-2" 
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition
+            x-init="setTimeout(() => show = false, 2000)"
+            class="text-sm text-gray-600 dark:text-gray-400"
+            >Kaydedildi.</p>
             @endif
         </div>
     </form>
