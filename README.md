@@ -163,6 +163,19 @@ npm run build
 
 This project is open-sourced under the [MIT license](https://opensource.org/licenses/MIT).
 
-
+Yönetici Giriş Ekranı
 <img width="917" height="394" alt="image" src="https://github.com/user-attachments/assets/d25edb6d-ff5d-454b-9635-75568e65f17b" />
+
+Laravel Yönetim Paneli Dashboard Arayüzü
+<img width="925" height="407" alt="image" src="https://github.com/user-attachments/assets/af50bf3d-c520-486d-8c45-92d48542fb26" />
+
+Kategori Yönetim Ekranı
+<img width="904" height="508" alt="image" src="https://github.com/user-attachments/assets/0efa9bb9-7316-4e48-8c62-e33876446774" />
+
+Müşteri Tarafı Ürün Detay Sayfası
+<img width="1023" height="583" alt="image" src="https://github.com/user-attachments/assets/93d98d28-9677-4305-a043-7f8b59c70f1d" />
+
+Kurumsal Site Kategori ve Hizmet Süreci Arayüzü
+<img width="975" height="460" alt="image" src="https://github.com/user-attachments/assets/7119862a-c89d-49f5-9ada-fd135a48f24d" />
+
 
